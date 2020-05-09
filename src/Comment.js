@@ -13,11 +13,20 @@ import axios from "axios";
 // - children[]
 export default class Comment extends React.Component {
 
+  state = {
+    comment: []
+  }
+
     async getComments(){
+  
     const {commentId} = this.props
+
+    console.log(this.props)
+    
     let {data} = await axios.get("https://hacker-news.firebaseio.com/v0/item/" + commentId + ".json?print=pretty")
     let response = data
 
+    
     this.setState({
       comment: {
         commentId,
@@ -31,26 +40,42 @@ export default class Comment extends React.Component {
   }
 
 
+  componentDidMount (){
+    this.getComments();
+  }
+
   render() {
-    if (!this.state.comment) {
-      return null
-    }
+    
 
-    let {comment} = this.state
-
-    return (
-      <div>
+    
+    if (!this.state.comment.kids) {
+      return (
+        <div>
         <table>
           <tbody>
             <tr>
-        <td style = {{paddingLeft: 20 * this.props.depth}} dangerouslySetInnerHTML = {{__html: comment.text}}></td>
-        {comment.kids.map((nestedCommentId, n) => (
-              <Comment commentId={nestedCommentId} depth={this.props.depth + 1} />
-            ))
-          }
+        {<td style = {{paddingLeft: 20 * this.props.depth}} dangerouslySetInnerHTML = {{__html: this.state.comment.text}}></td>}
           </tr>
           </tbody>
           </table>
+      </div>
+      )
+    }
+
+    return (
+      <div>
+          
+        <table>
+          <tbody>
+            <tr >
+        <td style = {{paddingLeft: 25 * this.props.depth}} dangerouslySetInnerHTML = {{__html: this.state.comment.text}}></td>
+          </tr>
+          </tbody>
+          </table>
+           {this.state.comment.kids.map((nestedCommentId, n) => (
+              <Comment commentId={nestedCommentId} depth={this.props.depth + 1.5} />
+            ))
+          }
       </div>
     );
   }

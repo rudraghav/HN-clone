@@ -17,6 +17,8 @@ export default class Story extends React.Component {
 
    async getTopComments () {
     let {kids} = this.props.location.state
+    this.setState({story:this.props.location.state})
+    if(kids)
     kids.map(async(id) => {
       let {data} = await axios.get("https://hacker-news.firebaseio.com/v0/item/" + id + ".json?print=pretty"); 
       let response = data;
@@ -28,7 +30,10 @@ export default class Story extends React.Component {
         text : response.text,
         time: response.time,
       }
-      this.setState({comments: this.state.topComments.concat(topComment), isLoading:false, story: this.props.location.state}) 
+      
+      if(topComment.text)
+      this.setState({topComments: this.state.topComments.concat(topComment), isLoading:false}) 
+
     })   
   }
 
@@ -38,6 +43,8 @@ export default class Story extends React.Component {
 
 
   render() {
+
+
 
     let date = (new Date()).getTime();
     date = date/1000
@@ -122,16 +129,15 @@ export default class Story extends React.Component {
 
             <table>
                 <tbody>
+            
             <ul>
-    
+         
             {this.state.topComments.map((topComment) => (
-               
-                    <li key = {topComment.id}>
-                         {console.log(topComment)}
-                    <Comment commentId= {topComment.id} depth ={1}/>
-                    </li>
-                 
+                   <li key = {topComment.id}>
+                    <Comment commentId= {topComment.id} depth ={1}/>      
+                    </li>         
             ))}
+
               </ul>
                 </tbody>
             </table>

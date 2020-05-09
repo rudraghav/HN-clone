@@ -1,8 +1,5 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Verdana, Geneva, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +7,43 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  font-family: Verdana, Geneva, sans-serif;
+  color: #000000;
+  text-decoration: none;
+  
+}
+
+a:visited{
+  color:#828282
+}
+
+table{
+  white-space: normal;
+  text-align: start;
+  line-height: normal;  
+}
+
+span.bottomRow{
+  font-size: '7pt';
+}
+
+@font-face{
+  font-family: Verdana, Geneva, sans-serif;
+  src: local('Verdana') , url(./fonts/Verdana.ttf) format('truetype'), local('Geneva'), url(./fonts/Geneva.ttf) format('truetype'), local('Sans') , url(./fonts/Sans.ttf) format('truetype') ;
+  
+}
+
+span.comments {
+  font-size: 7pt
+}
+
+span.comments:hover{
+text-decoration: underline;
+}
+
+a.website:hover{
+  text-decoration: underline;
 }
